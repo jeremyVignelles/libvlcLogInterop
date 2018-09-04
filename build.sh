@@ -1,39 +1,37 @@
 #!/bin/bash
 #
-# This script builds the library using dockcross (https://github.com/dockcross/dockcross)
+# This script builds the library using crossbuild (https://github.com/multiarch/crossbuild)
 # 
-# I installed them using :
-#
-#   mkdir ~/bin
-#   cd ~/bin
-#   docker run --rm dockcross/linux-x64 > dockcross-linux-x64
-#   chmod +x dockcross-linux-x64
-#
-# repeat for all images listed below. Make sure ~/bin is in your path
-# (since the bin folder did not exist at the time of login, I had to source `~/.profile`, but restarting the session might be enough)
-#
 
 function build {
-    COMPILER="$1"
-    echo "Building for $COMPILER..."
+    HOST="$1"
+    echo "Building for $HOST..."
     shift
-    mkdir -p bin/$COMPILER
+    mkdir -p bin/$HOST
 
-    if [[ $COMPILER == windows-* ]]; then
+    if [[ $HOST == *-mingw32 ]]; then
         SHARED_LIBRARY_OPTIONS=
         SHARED_LIBRARY_EXTENSION=".dll"
         EXECUTABLE_EXTENSION=".exe"
+        CC=$HOST-gcc
+        RPATH_FIX=
     else
         SHARED_LIBRARY_OPTIONS=-fPIC
-        SHARED_LIBRARY_EXTENSION=".so"
+        if [[ $HOST == *-darwin ]]; then
+            SHARED_LIBRARY_EXTENSION=".dylib"
+            RPATH_FIX='-Wl,-rpath,@loader_path'
+        else
+            SHARED_LIBRARY_EXTENSION=".so"
+            RPATH_FIX='-Wl,-rpath,$ORIGIN'
+        fi
         EXECUTABLE_EXTENSION=
     fi
-    dockcross-${COMPILER} bash -c "\$CC -shared -Wall -Werror -o bin/$COMPILER/libvlcLogInterop${SHARED_LIBRARY_EXTENSION} libvlcLogInterop.c ${SHARED_LIBRARY_OPTIONS}"
-    dockcross-${COMPILER} bash -c "\$CC '-Wl,-rpath=\$ORIGIN' -Wall -Werror -o bin/$COMPILER/testLogInterop${EXECUTABLE_EXTENSION} test/main.c -Lbin/$COMPILER -lvlcLogInterop"
+    docker run --rm -v $(pwd):/workdir -e CROSS_TRIPLE=$HOST multiarch/crossbuild cc -shared -Wall -Werror -o bin/$HOST/libvlcLogInterop${SHARED_LIBRARY_EXTENSION} libvlcLogInterop.c ${SHARED_LIBRARY_OPTIONS}
+    docker run --rm -v $(pwd):/workdir -e CROSS_TRIPLE=$HOST multiarch/crossbuild cc -Wall -Werror -o bin/$HOST/testLogInterop${EXECUTABLE_EXTENSION} test/main.c -Lbin/$HOST -lvlcLogInterop ${RPATH_FIX}
 }
 
-build linux-x86
-build linux-x64
-build windows-x86
-build windows-x64
-build linux-armv7
+build x86_64-linux-gnu
+build arm-linux-gnueabihf
+build x86_64-w64-mingw32
+build i686-w64-mingw32
+build x86_64-apple-darwin
