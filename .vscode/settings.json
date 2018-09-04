@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "cstdio": "c"
+        "cstdio": "c",
+        "stdarg.h": "c"
     }
 }
