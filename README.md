@@ -73,3 +73,16 @@ One thing finished to put a stop on that research: Once all this is done, you'll
 Long story short : it was not practical at all.
 
 Then, the idea grew that we could have a native proxy, built statically with the same compiler than libvlc. We don't have to link against libvlc though, the routing is made by the managed binding library.
+
+## How to build
+
+You will need docker (on linux, docker for windows, docker for mac...).
+Then, in a bash, run
+
+```
+SUFFIX=beta01 ./build.sh
+```
+
+Just remove the env variable if you need a release NuGet package instead of a debug one.
+
+Don't forget to increment the number at each version you have installed in your machine, if you want to avoid nuget caching issues.

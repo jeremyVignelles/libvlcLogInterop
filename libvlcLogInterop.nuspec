@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>VideoLAN.LibvlcLogInterop</id>
+        <version>1.0.0</version>
+        <description>An interop helper for using libvlc's logging API in managed code, like LibVLCSharp</description>
+        <authors>Jérémy VIGNELLES</authors>
+        <owners>VideoLAN</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+        <tags>libvlc vlc videolan native c/c++ video audio logging</tags>
+        <projectUrl>https://github.com/jeremyVignelles/libvlcLogInterop</projectUrl>
+        <licenseUrl>https://raw.githubusercontent.com/jeremyVignelles/libvlcLogInterop/master/LICENSE</licenseUrl>
+        <iconUrl>http://images1.videolan.org/images/vlc64x64.png</iconUrl>
+    </metadata>
+    <files>
+        <!-- Windows -->
+        <file src="bin/i686-w64-mingw32/libvlcLogInterop.dll" target="runtimes\win-x86\native" />
+        <file src="bin/x86_64-w64-mingw32/libvlcLogInterop.dll" target="runtimes\win-x64\native" />
+
+        <!-- Linux -->
+        <file src="bin/x86_64-linux-gnu/libvlcLogInterop.so" target="runtimes\lin-x64\native" />
+        <file src="bin/arm-linux-gnueabihf/libvlcLogInterop.so" target="runtimes\lin-arm\native" />
+
+        <!-- MacOS -->
+        <file src="bin/x86_64-apple-darwin/libvlcLogInterop.dylib" target="runtimes\osx-x64\native" />
+    </files>
+</package>

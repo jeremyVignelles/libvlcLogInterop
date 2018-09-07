@@ -35,3 +35,9 @@ build arm-linux-gnueabihf
 build x86_64-w64-mingw32
 build i686-w64-mingw32
 build x86_64-apple-darwin
+
+if [[ -n $SUFFIX ]]; then
+    build_suffix_arg="-Suffix $SUFFIX"
+fi
+
+docker run --rm -v $(pwd):/workdir mono:latest nuget pack /workdir/libvlcLogInterop.nuspec -OutputDirectory /workdir/bin -nopackageanalysis $build_suffix_arg
