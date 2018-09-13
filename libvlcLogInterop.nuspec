@@ -15,14 +15,16 @@
     </metadata>
     <files>
         <!-- Windows -->
-        <file src="bin/i686-w64-mingw32/libvlcLogInterop.dll" target="runtimes\win-x86\native" />
-        <file src="bin/x86_64-w64-mingw32/libvlcLogInterop.dll" target="runtimes\win-x64\native" />
+        <file src="bin/i686-w64-mingw32/libvlcLogInterop.dll" target="build\win-x86" />
+        <file src="bin/x86_64-w64-mingw32/libvlcLogInterop.dll" target="build\win-x64" />
 
         <!-- Linux -->
-        <file src="bin/x86_64-linux-gnu/libvlcLogInterop.so" target="runtimes\lin-x64\native" />
-        <file src="bin/arm-linux-gnueabihf/libvlcLogInterop.so" target="runtimes\lin-arm\native" />
+        <file src="bin/x86_64-linux-gnu/libvlcLogInterop.so" target="build\linux-x64" />
+        <file src="bin/arm-linux-gnueabihf/libvlcLogInterop.so" target="build\linux-arm" />
 
         <!-- MacOS -->
-        <file src="bin/x86_64-apple-darwin/libvlcLogInterop.dylib" target="runtimes\osx-x64\native" />
+        <file src="bin/x86_64-apple-darwin/libvlcLogInterop.dylib" target="build\osx-x64" />
+
+        <file src="VideoLAN.LibvlcLogInterop.targets" target="build" />
     </files>
 </package>

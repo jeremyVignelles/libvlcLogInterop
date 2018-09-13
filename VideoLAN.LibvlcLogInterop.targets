@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- Properties are named the same way as the VideoLAN.LibVLC.Windows nuget package -->
+    <VlcWindowsX64TargetDir Condition=" '$(VlcWindowsX64TargetDir)' == '' ">libvlc\win-x64</VlcWindowsX64TargetDir>
+    <VlcWindowsX64Enabled Condition="'$(VlcWindowsX64Enabled)' == '' AND ('$(Platform)' == 'x64' OR '$(Platform)' == 'AnyCPU')">true</VlcWindowsX64Enabled>
+    <VlcWindowsX86TargetDir Condition=" '$(VlcWindowsX86TargetDir)' == '' ">libvlc\win-x86</VlcWindowsX86TargetDir>
+    <VlcWindowsX86Enabled Condition="'$(VlcWindowsX86Enabled)' == '' AND ('$(Platform)' == 'x86' OR '$(Platform)' == 'AnyCPU')">true</VlcWindowsX86Enabled>
+    
+    <VlcLinuxX64TargetDir Condition=" '$(VlcLinuxX64TargetDir)' == '' ">libvlc\linux-x64</VlcLinuxX64TargetDir>
+    <VlcLinuxX64Enabled Condition="'$(VlcLinuxX64Enabled)' == '' AND ('$(Platform)' == 'x64' OR '$(Platform)' == 'AnyCPU')">true</VlcLinuxX64Enabled>
+    <VlcLinuxArmTargetDir Condition=" '$(VlcLinuxArmTargetDir)' == '' ">libvlc\linux-arm</VlcLinuxArmTargetDir>
+    <VlcLinuxArmEnabled Condition="'$(VlcLinuxArmEnabled)' == '' AND '$(Platform)' == 'AnyCPU'">true</VlcLinuxArmEnabled>
+
+    <VlcMacOSX64TargetDir Condition=" '$(VlcMacOSX64TargetDir)' == '' ">libvlc\osx-x64</VlcMacOSX64TargetDir>
+    <VlcMacOSX64Enabled Condition="'$(VlcMacOSX64Enabled)' == '' AND ('$(Platform)' == 'x64' OR '$(Platform)' == 'AnyCPU')">true</VlcMacOSX64Enabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)win-x64\libvlcLogInterop.dll" Condition="'$(VlcWindowsX64Enabled)' == 'true'">
+        <Link>$(VlcWindowsX64TargetDir)\libvlcLogInterop.dll</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)win-x86\libvlcLogInterop.dll" Condition="'$(VlcWindowsX86Enabled)' == 'true'">
+        <Link>$(VlcWindowsX86TargetDir)\libvlcLogInterop.dll</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="$(MSBuildThisFileDirectory)linux-x64\libvlcLogInterop.so" Condition="'$(VlcLinuxX64Enabled)' == 'true'">
+        <Link>$(VlcLinuxX64TargetDir)\libvlcLogInterop.so</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)linux-arm\libvlcLogInterop.so" Condition="'$(VlcLinuxArmEnabled)' == 'true'">
+        <Link>$(VlcLinuxArmTargetDir)\libvlcLogInterop.so</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <None Include="$(MSBuildThisFileDirectory)osx-x64\libvlcLogInterop.dylib" Condition="'$(VlcMacOSX64Enabled)' == 'true'">
+        <Link>$(VlcMacOSX64TargetDir)\libvlcLogInterop.dylib</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
