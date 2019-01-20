@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>VideoLAN.LibvlcLogInterop</id>
+        <id>LibVLCLogInterop</id>
         <version>1.0.0</version>
         <description>An interop helper for using libvlc's logging API in managed code, like LibVLCSharp</description>
         <authors>Jérémy VIGNELLES</authors>
@@ -25,6 +25,6 @@
         <!-- MacOS -->
         <file src="bin/x86_64-apple-darwin/libvlcLogInterop.dylib" target="build\osx-x64" />
 
-        <file src="VideoLAN.LibvlcLogInterop.targets" target="build" />
+        <file src="LibVLCLogInterop.targets" target="build" />
     </files>
 </package>
